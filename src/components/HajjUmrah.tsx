@@ -1,5 +1,5 @@
 import { hajjTiers, waLink } from '../data';
-import { Check, WhatsApp, Clock, MapPin, Shield } from './Icons';
+import { Check, WhatsApp, Clock, MapPin } from './Icons';
 
 function formatPKR(n: number): string {
   return 'PKR ' + n.toLocaleString('en-PK');
@@ -25,12 +25,9 @@ export default function HajjUmrah() {
             Perform your pilgrimage with peace of mind. Our licensed team handles visas, hotels, transport,
             and religious guidance — so you can focus on your ibadah.
           </p>
-          <div className="inline-flex items-center gap-2 bg-white/5 border border-marigold/30 rounded-lg px-4 py-2">
-            <Shield className="w-4 h-4 text-marigold" />
-            <span className="text-warm-ivory/90 text-sm font-medium">
-              Licensed by the Ministry of Religious Affairs — License No. HGO-3847
-            </span>
-          </div>
+          <p className="text-sm text-warm-ivory/60">
+            Licensed by the Ministry of Religious Affairs — License No. HGO-3847
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

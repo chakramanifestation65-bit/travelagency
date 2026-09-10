@@ -19,7 +19,7 @@ function PackageCard({ pkg }: { pkg: TripPackage }) {
   const waText = `Hi, I'm interested in the "${pkg.title}" package (${pkg.duration}, ${formatPKR(pkg.price)} from). Please share more details.`;
 
   return (
-    <div className={`bg-white rounded-2xl overflow-hidden flex flex-col ${pkg.featured ? 'shadow-lg' : 'shadow-sm'} hover:shadow-lg transition-shadow duration-300`}>
+    <div className={`bg-white rounded-2xl overflow-hidden flex flex-col card-lift ${pkg.featured ? 'shadow-lg hover:shadow-xl' : 'shadow-sm hover:shadow-lg'}`}>
       <div className="relative h-52 overflow-hidden">
         <img
           src={pkg.image}
@@ -91,7 +91,7 @@ function PackageCard({ pkg }: { pkg: TripPackage }) {
             <ol className="space-y-1.5 mb-4">
               {pkg.itinerary.map((day, i) => (
                 <li key={i} className="text-sm text-charcoal/70 flex gap-2">
-                  <span className="text-marigold font-bold text-xs mt-0.5 shrink-0">{i + 1}</span>
+                  <span className="text-indigo-night font-bold text-xs mt-0.5 shrink-0">{i + 1}</span>
                   {day}
                 </li>
               ))}
@@ -144,7 +144,7 @@ export default function Packages({ filterDestination, filterTripType }: Packages
   });
 
   return (
-    <section id="packages" className="py-20 bg-white">
+    <section id="packages" className="py-20 bg-warm-ivory">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-indigo-night mb-3">
@@ -164,7 +164,7 @@ export default function Packages({ filterDestination, filterTripType }: Packages
               className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                 activeCategory === cat
                   ? 'bg-indigo-night text-warm-ivory'
-                  : 'bg-warm-ivory text-charcoal/70 hover:bg-warm-ivory/70'
+                  : 'bg-white text-charcoal/70 hover:bg-white/70'
               }`}
             >
               {cat}

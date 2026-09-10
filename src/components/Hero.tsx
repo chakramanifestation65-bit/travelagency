@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Search } from './Icons';
+import { useScrollY, useCountUp, useInView } from '../hooks/useScrollMotion';
 
 type HeroProps = {
   onSearch: (destination: string, tripType: string) => void;
@@ -12,15 +13,35 @@ const destinationOptions = [
   'Dubai / UAE', 'Turkey', 'Thailand', 'Malaysia', 'Azerbaijan', 'Maldives',
 ];
 
-const stats = [
-  { value: '12+', label: 'Years in business' },
-  { value: '8,500+', label: 'Trips arranged' },
-  { value: '25,000+', label: 'Travelers served' },
+type Stat = { target: number; suffix: string; label: string };
+
+const stats: Stat[] = [
+  { target: 12, suffix: '+', label: 'Years in business' },
+  { target: 8500, suffix: '+', label: 'Trips arranged' },
+  { target: 25000, suffix: '+', label: 'Travelers served' },
 ];
+
+function StatItem({ stat, active, showRule }: { stat: Stat; active: boolean; showRule: boolean }) {
+  const value = useCountUp(stat.target, active);
+  const display = value.toLocaleString('en-PK') + stat.suffix;
+  return (
+    <div className="flex items-center gap-5">
+      {showRule && <div className="w-px h-10 bg-warm-ivory/30" />}
+      <div>
+        <div className="font-display font-bold text-2xl text-marigold leading-none">{display}</div>
+        <div className="text-warm-ivory/70 text-xs mt-1">{stat.label}</div>
+      </div>
+    </div>
+  );
+}
 
 export default function Hero({ onSearch }: HeroProps) {
   const [destination, setDestination] = useState('');
   const [tripType, setTripType] = useState('');
+  const scrollY = useScrollY();
+  const [statRef, statInView] = useInView<HTMLDivElement>();
+
+  const parallaxOffset = scrollY * 0.4;
 
   const handleSearch = () => {
     onSearch(destination, tripType);
@@ -29,28 +50,31 @@ export default function Hero({ onSearch }: HeroProps) {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 pb-12 overflow-hidden">
-      <div className="absolute inset-0 z-0">
+      <div
+        className="absolute inset-0 z-0"
+        style={{ transform: `translateY(${parallaxOffset}px)` }}
+      >
         <img
-          src="https://images.pexels.com/photos/12993961/pexels-photo-12993961.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-          alt="Pakistan northern areas highway"
-          className="w-full h-full object-cover"
+          src="https://images.pexels.com/photos/27244347/pexels-photo-27244347.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+          alt="Karakoram Highway winding through the mountains of Hunza, Pakistan"
+          className="w-full h-full object-cover scale-110"
         />
         <div className="absolute inset-0 bg-indigo-night/80" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-3xl">
-          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-warm-ivory leading-[1.1] mb-5 text-balance animate-fade-up">
+          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-warm-ivory leading-[1.1] mb-5 text-balance hero-enter">
             Discover Pakistan and the world,{' '}
             <span className="underline-marigold">one journey at a time</span>
           </h1>
 
-          <p className="text-lg text-warm-ivory/90 mb-8 max-w-2xl leading-relaxed animate-fade-up" style={{ animationDelay: '0.1s' }}>
+          <p className="text-lg text-warm-ivory/90 mb-8 max-w-2xl leading-relaxed hero-enter" style={{ animationDelay: '0.1s' }}>
             FlyWheel PK has been arranging domestic and international vacations, Hajj, and Umrah
             from Islamabad since 2013 — with transparent pricing and 24/7 support.
           </p>
 
-          <div className="bg-warm-ivory rounded-xl shadow-2xl p-4 sm:p-5 animate-fade-up" style={{ animationDelay: '0.2s' }}>
+          <div className="bg-warm-ivory rounded-xl shadow-2xl p-4 sm:p-5 hero-enter" style={{ animationDelay: '0.2s' }}>
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
                 <label className="block text-sm font-semibold text-charcoal mb-1.5">
@@ -94,15 +118,9 @@ export default function Hero({ onSearch }: HeroProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-5 mt-8 animate-fade-up" style={{ animationDelay: '0.3s' }}>
+          <div ref={statRef} className="flex items-center gap-5 mt-8 hero-enter" style={{ animationDelay: '0.3s' }}>
             {stats.map((stat, i) => (
-              <div key={stat.label} className="flex items-center gap-5">
-                {i > 0 && <div className="w-px h-10 bg-warm-ivory/30" />}
-                <div>
-                  <div className="font-display font-bold text-2xl text-marigold leading-none">{stat.value}</div>
-                  <div className="text-warm-ivory/70 text-xs mt-1">{stat.label}</div>
-                </div>
-              </div>
+              <StatItem key={stat.label} stat={stat} active={statInView} showRule={i > 0} />
             ))}
           </div>
         </div>

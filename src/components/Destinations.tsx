@@ -1,5 +1,6 @@
 import { destinations } from '../data';
 import { Mountain, Globe } from './Icons';
+import { useInView } from '../hooks/useScrollMotion';
 
 type DestinationsProps = {
   onCardClick: (destination: string) => void;
@@ -10,8 +11,10 @@ function formatPKR(n: number): string {
 }
 
 export default function Destinations({ onCardClick }: DestinationsProps) {
+  const [ref, inView] = useInView<HTMLDivElement>();
+
   return (
-    <section id="destinations" className="py-20 bg-warm-ivory">
+    <section id="destinations" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-indigo-night mb-3">
@@ -23,14 +26,15 @@ export default function Destinations({ onCardClick }: DestinationsProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {destinations.map((dest) => {
+        <div ref={ref} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {destinations.map((dest, i) => {
             const Icon = dest.type === 'Domestic' ? Mountain : Globe;
             return (
               <button
                 key={dest.name}
                 onClick={() => onCardClick(dest.name)}
-                className="group relative overflow-hidden rounded-xl text-left"
+                className={`group relative overflow-hidden rounded-xl text-left card-lift hover:shadow-lg dest-card ${inView ? 'dest-visible' : ''}`}
+                style={{ animationDelay: inView ? `${i * 60}ms` : undefined }}
               >
                 <div className="aspect-[3/4] overflow-hidden rounded-xl">
                   <img

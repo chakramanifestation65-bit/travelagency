@@ -1,5 +1,5 @@
 import { waLink, PHONE_DISPLAY, PHONE_TEL, EMAIL, ADDRESS, OFFICE_HOURS } from '../data';
-import { Facebook, Instagram, TikTok, WhatsApp, Phone, Mail, MapPin, Clock, Shield } from './Icons';
+import { Facebook, Instagram, TikTok, WhatsApp, Phone, Mail, MapPin, Clock } from './Icons';
 
 const quickLinks = [
   { label: 'Destinations', href: '#destinations' },
@@ -28,7 +28,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col leading-none">
                 <span className="font-display font-bold text-lg text-warm-ivory">FlyWheel</span>
-                <span className="text-xs font-medium text-marigold">PK Tours</span>
+                <span className="text-xs font-medium text-warm-ivory/60">PK Tours</span>
               </div>
             </div>
             <p className="text-sm text-warm-ivory/70 leading-relaxed max-w-xs">
@@ -49,7 +49,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-display font-bold text-sm text-marigold mb-4">Quick links</h4>
+            <h4 className="font-display font-bold text-sm text-warm-ivory mb-4">Quick links</h4>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
@@ -62,52 +62,47 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-display font-bold text-sm text-marigold mb-4">Contact</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2.5 text-sm text-warm-ivory/70">
-                <MapPin className="w-4 h-4 text-marigold shrink-0 mt-0.5" />
+            <h4 className="font-display font-bold text-sm text-warm-ivory mb-4">Contact</h4>
+            <ul className="space-y-2.5 text-sm text-warm-ivory/70">
+              <li className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-warm-ivory/40 shrink-0 mt-0.5" />
                 {ADDRESS}
               </li>
               <li>
-                <a href={`tel:${PHONE_TEL}`} className="flex items-center gap-2.5 text-sm text-warm-ivory/70 hover:text-marigold transition-colors">
-                  <Phone className="w-4 h-4 text-marigold shrink-0" />
+                <a href={`tel:${PHONE_TEL}`} className="flex items-center gap-2 hover:text-marigold transition-colors">
+                  <Phone className="w-4 h-4 text-warm-ivory/40 shrink-0" />
                   {PHONE_DISPLAY}
                 </a>
               </li>
               <li>
-                <a href={waLink("Hi, I'm interested in a trip")} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-sm text-warm-ivory/70 hover:text-marigold transition-colors">
-                  <WhatsApp className="w-4 h-4 text-green-400 shrink-0" />
+                <a href={waLink("Hi, I'm interested in a trip")} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-marigold transition-colors">
+                  <WhatsApp className="w-4 h-4 text-warm-ivory/40 shrink-0" />
                   WhatsApp chat
                 </a>
               </li>
               <li>
-                <a href={`mailto:${EMAIL}`} className="flex items-center gap-2.5 text-sm text-warm-ivory/70 hover:text-marigold transition-colors">
-                  <Mail className="w-4 h-4 text-marigold shrink-0" />
+                <a href={`mailto:${EMAIL}`} className="flex items-center gap-2 hover:text-marigold transition-colors">
+                  <Mail className="w-4 h-4 text-warm-ivory/40 shrink-0" />
                   {EMAIL}
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-sm text-warm-ivory/70">
-                <Clock className="w-4 h-4 text-marigold shrink-0 mt-0.5" />
+              <li className="flex items-start gap-2">
+                <Clock className="w-4 h-4 text-warm-ivory/40 shrink-0 mt-0.5" />
                 {OFFICE_HOURS}
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-display font-bold text-sm text-marigold mb-4">Trust & licensing</h4>
-            <ul className="space-y-3">
+            <h4 className="font-display font-bold text-sm text-warm-ivory mb-4">Trust & licensing</h4>
+            <ul className="space-y-3 text-sm text-warm-ivory/70 leading-relaxed">
               {trustBadges.map((badge) => (
-                <li key={badge} className="flex items-start gap-2.5 text-sm text-warm-ivory/70">
-                  <Shield className="w-4 h-4 text-marigold shrink-0 mt-0.5" />
-                  {badge}
-                </li>
+                <li key={badge}>{badge}</li>
               ))}
             </ul>
-            <div className="mt-5 p-3 bg-white/5 rounded-lg">
-              <p className="text-xs text-warm-ivory/60 leading-relaxed">
-                Bank transfer, Easypaisa & JazzCash accepted — confirm with our team.
-              </p>
-            </div>
+            <p className="text-xs text-warm-ivory/50 leading-relaxed mt-5">
+              Bank transfer, Easypaisa & JazzCash accepted — confirm with our team.
+            </p>
           </div>
         </div>
 

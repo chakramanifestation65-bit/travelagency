@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Phone, WhatsApp } from './Icons';
 import { waLink, PHONE_DISPLAY, PHONE_TEL } from '../data';
+import { useScrolledPast } from '../hooks/useScrollMotion';
 
 const navLinks = [
   { label: 'Destinations', href: '#destinations' },
@@ -13,6 +14,7 @@ const navLinks = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const scrolled = useScrolledPast(600);
 
   useEffect(() => {
     const onScroll = () => setOpen(false);
@@ -21,14 +23,14 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-indigo-night shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-3">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-indigo-night shadow-lg header-shrink">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between ${scrolled ? 'py-1.5' : 'py-3'}`}>
         <a href="#home" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-lg bg-marigold flex items-center justify-center">
-            <span className="text-indigo-night font-display font-bold text-lg">F</span>
+          <div className={`rounded-lg bg-marigold flex items-center justify-center header-shrink ${scrolled ? 'w-8 h-8' : 'w-10 h-10'}`}>
+            <span className="text-indigo-night font-display font-bold header-shrink" style={{ fontSize: scrolled ? '0.9rem' : '1.125rem' }}>F</span>
           </div>
           <div className="flex flex-col leading-none">
-            <span className="font-display font-bold text-lg text-warm-ivory">FlyWheel</span>
+            <span className={`font-display font-bold text-warm-ivory header-shrink ${scrolled ? 'text-base' : 'text-lg'}`}>FlyWheel</span>
             <span className="text-xs font-medium text-marigold">PK Tours</span>
           </div>
         </a>

@@ -1,7 +1,10 @@
 import { whyUs, bookingSteps } from '../data';
 import { iconMap } from './Icons';
+import { useInView } from '../hooks/useScrollMotion';
 
 export default function WhyUs() {
+  const [stepRef, stepInView] = useInView<HTMLDivElement>();
+
   return (
     <>
       <section id="why-us" className="py-20 bg-warm-ivory">
@@ -24,9 +27,7 @@ export default function WhyUs() {
                   key={item.title}
                   className="bg-white rounded-xl p-6 hover:shadow-md transition-shadow duration-300"
                 >
-                  <div className="w-11 h-11 rounded-lg bg-indigo-night flex items-center justify-center mb-4">
-                    {Icon && <Icon className="w-5 h-5 text-marigold" />}
-                  </div>
+                  {Icon && <Icon className="w-6 h-6 text-charcoal/50 mb-4" />}
                   <h3 className="font-display font-bold text-lg text-indigo-night mb-2">{item.title}</h3>
                   <p className="text-sm text-charcoal/70 leading-relaxed">{item.text}</p>
                 </div>
@@ -47,12 +48,16 @@ export default function WhyUs() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div ref={stepRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-charcoal/10">
+              <div className={`h-full bg-marigold step-fill ${stepInView ? 'step-filled' : ''}`} />
+            </div>
+
             {bookingSteps.map((step) => (
               <div key={step.step} className="relative">
                 <div className="bg-warm-ivory rounded-xl p-6 h-full">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="font-display font-bold text-3xl text-marigold leading-none">
+                    <span className="font-display font-bold text-3xl text-indigo-night leading-none">
                       {String(step.step).padStart(2, '0')}
                     </span>
                   </div>
